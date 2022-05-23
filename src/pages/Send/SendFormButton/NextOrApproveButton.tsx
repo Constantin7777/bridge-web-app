@@ -24,6 +24,7 @@ const NextOrApproveButton = ({
 
   const fromBlockChain = useRecoilValue(SendStore.fromBlockChain)
   const bridgeUsed = useRecoilValue(SendStore.bridgeUsed)
+  const toBlockChain = useRecoilValue(SendStore.toBlockChain)
   const validationResult = useRecoilValue(SendStore.validationResult)
   const amount = useRecoilValue(SendStore.amount)
 
@@ -79,9 +80,14 @@ const NextOrApproveButton = ({
   return (
     <Button
       onClick={onClickSendNextButton}
-      disabled={!ableButton || bridgeUsed === BridgeType.ibc}
+      disabled={
+        !ableButton ||
+        (bridgeUsed === BridgeType.ibc && toBlockChain === BlockChainType.osmo)
+      }
     >
-      {bridgeUsed === BridgeType.ibc ? 'IBC suspended' : 'Next'}
+      {bridgeUsed === BridgeType.ibc && toBlockChain === BlockChainType.osmo
+        ? 'IBC suspended'
+        : 'Next'}
     </Button>
   )
 }
