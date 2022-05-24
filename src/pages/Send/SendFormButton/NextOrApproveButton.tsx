@@ -82,10 +82,14 @@ const NextOrApproveButton = ({
       onClick={onClickSendNextButton}
       disabled={
         !ableButton ||
-        (bridgeUsed === BridgeType.ibc && toBlockChain === BlockChainType.osmo)
+        (bridgeUsed === BridgeType.ibc &&
+          (toBlockChain === BlockChainType.osmo ||
+            fromBlockChain === BlockChainType.osmo))
       }
     >
-      {bridgeUsed === BridgeType.ibc && toBlockChain === BlockChainType.osmo
+      {bridgeUsed === BridgeType.ibc &&
+      (toBlockChain === BlockChainType.osmo ||
+        fromBlockChain === BlockChainType.osmo)
         ? 'IBC suspended'
         : 'Next'}
     </Button>
